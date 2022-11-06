@@ -15,6 +15,8 @@ class Component extends StatelessWidget {
     switch (kind) {
       case binding.ComponentKind.Component_Text:
         return TextComponent(text: element.text);
+      case binding.ComponentKind.Component_Tile:
+        return TileComponent(tile: element.tile);
       case binding.ComponentKind.Component_Column:
         return ColumnComponent(column: element.column);
       default:
@@ -32,6 +34,32 @@ class TextComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     final str = text.ref.text.cast<Utf8>().toDartString();
     return Text(str);
+  }
+}
+
+class TileComponent extends StatelessWidget {
+  const TileComponent({super.key, required this.tile});
+
+  final Pointer<binding.Tile> tile;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: (() {
+        final r = tile.ref.title;
+        if (r.address > 0) {
+          return Component(kind: r.ref.kind, element: r.ref.element);
+        }
+        return null;
+      })(),
+      subtitle: (() {
+        final r = tile.ref.subtitle;
+        if (r.address > 0) {
+          return Component(kind: r.ref.kind, element: r.ref.element);
+        }
+        return null;
+      })(),
+    );
   }
 }
 
