@@ -1,3 +1,4 @@
+#include <cstring>
 #include "main.h"
 
 ChildComponent *buildText(const char *raw_text) {
@@ -9,9 +10,20 @@ ChildComponent *buildText(const char *raw_text) {
     return component;
 }
 
+ChildComponent *buildTile(const char *raw_title, const char *raw_subtitle) {
+    auto tile = new Tile{.title = buildText(raw_title)};
+    if (strlen(raw_subtitle) > 0) {
+        tile->subtitle = buildText(raw_subtitle);
+    }
+    return new ChildComponent {
+        .kind = Component_Tile,
+        .element = {.tile = tile}
+    };
+}
+
 Component *build() {
-    auto first = buildText("first");
-    auto second = buildText("second");
+    auto first = buildTile("first", "");
+    auto second = buildTile("second", "second");
     first->next = second;
     auto column = new Column{.first = first};
     auto root = new Component{
