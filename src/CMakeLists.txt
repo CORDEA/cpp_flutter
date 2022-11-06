@@ -8,6 +8,7 @@ project(main_library VERSION 0.0.1 LANGUAGES CXX)
 add_library(main SHARED
   "main.cpp"
 )
+add_executable(main_test main.cpp)
 
 set_target_properties(main PROPERTIES
   PUBLIC_HEADER main.h

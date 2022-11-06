@@ -1,6 +1,11 @@
 #include <cstring>
 #include "main.h"
 
+int main() {
+    build();
+    return 0;
+}
+
 ChildComponent *buildText(const char *raw_text) {
     auto text = new Text{.text = raw_text};
     auto component = new ChildComponent{
