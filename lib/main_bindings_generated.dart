@@ -37,11 +37,14 @@ class MainBindings {
 
 abstract class ComponentKind {
   static const int Component_Text = 0;
-  static const int Component_Column = 1;
+  static const int Component_Tile = 1;
+  static const int Component_Column = 2;
 }
 
 class Element extends ffi.Union {
   external ffi.Pointer<Text> text;
+
+  external ffi.Pointer<Tile> tile;
 
   external ffi.Pointer<Column> column;
 }
@@ -50,8 +53,10 @@ class Text extends ffi.Struct {
   external ffi.Pointer<ffi.Char> text;
 }
 
-class Column extends ffi.Struct {
-  external ffi.Pointer<ChildComponent> first;
+class Tile extends ffi.Struct {
+  external ffi.Pointer<ChildComponent> title;
+
+  external ffi.Pointer<ChildComponent> subtitle;
 }
 
 class ChildComponent extends ffi.Struct {
@@ -61,6 +66,10 @@ class ChildComponent extends ffi.Struct {
   external Element element;
 
   external ffi.Pointer<ChildComponent> next;
+}
+
+class Column extends ffi.Struct {
+  external ffi.Pointer<ChildComponent> first;
 }
 
 class Component extends ffi.Struct {
