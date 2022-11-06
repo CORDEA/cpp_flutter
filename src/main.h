@@ -21,7 +21,7 @@ typedef struct ChildComponent {
 } ChildComponent;
 
 typedef struct Text {
-    char *text;
+    const char *text;
 } Text;
 
 typedef struct Column {
